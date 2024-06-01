@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker { image 'node:20.11.1-alpine3.19' }
-    }
+    agent any
 
     environment {
         DOCKER_IMAGE = 'myapp:latest' // Имя и тег вашего Docker образа
