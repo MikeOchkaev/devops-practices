@@ -13,6 +13,12 @@ pipeline {
                 echo 'Finished step \'Checkout\'.'
             }
         }
+
+        stage('Test step') {
+            steps {
+                echo 'Hello world!'
+            }
+        }
         
         stage('Build') {
             steps {
