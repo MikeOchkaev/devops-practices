@@ -22,12 +22,12 @@ pipeline {
             }
         }
         
-        stage('Check Docker') {
-            steps {
-                echo 'Checking docker version ...'
-                sh 'docker version'
-            }
-        }
+        // stage('Check Docker') {
+        //     steps {
+        //         echo 'Checking docker version ...'
+        //         sh 'docker version'
+        //     }
+        // }
         // stage('Build Docker Image') {
         //     steps {
         //         script {
