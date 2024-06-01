@@ -8,23 +8,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo 'Started step \'Checkout\''
                 git url: 'git@github.com:MikeOchkaev/devops-practices.git', branch: 'master'
+                echo 'Finished step \'Checkout\'.'
             }
         }
         
         stage('Build') {
             steps {
+                echo 'Starting build application ...'
                 sh './mvnw clean install'
+                echo 'Finished step \'Build\''
             }
         }
         
-        stage('Build Docker Image') {
+        stage('Check Docker') {
             steps {
-                script {
-                    // Сборка Docker образа
-                    sh 'docker build -t $DOCKER_IMAGE .'
-                }
+                echo 'Checking docker version ...'
+                sh 'docker version'
             }
         }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //             // Сборка Docker образа
+        //             sh 'docker build -t $DOCKER_IMAGE .'
+        //         }
+        //     }
+        // }
     }
 }
