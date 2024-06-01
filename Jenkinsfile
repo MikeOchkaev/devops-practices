@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/username/repository.git', branch: 'main'
+                git url: 'git@github.com:MikeOchkaev/devops-practices.git', branch: 'master'
             }
         }
         
