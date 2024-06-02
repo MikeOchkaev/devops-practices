@@ -32,6 +32,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 echo 'Run docker container ...'
+                sh 'docker stop $CONTAINER_NAME'
                 sh 'docker run -d -p 8181:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
             }
         }
