@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'devops-practices:latest'
-        CONTAINER_NAME = 'devops-practices'
+        NEW_CONTAINER_NAME = 'devops-practices'
+        OLD_CONTAINER_NAME = 'devops-practices-prev'
     }
 
     parameters {
@@ -42,13 +43,14 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 echo 'Stopping old container ...'
-                sh 'docker stop $CONTAINER_NAME || true'
+                sh 'docker stop $NEW_CONTAINER_NAME || true'
+                sh 'docker rename $OLD_CONTAINER_NAME $NEW_CONTAINER_NAME'
 
                 echo 'Run new container ...'
-                sh 'docker run -d -p 8282:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
+                sh 'docker run -d -p 8282:8080 --name $NEW_CONTAINER_NAME $DOCKER_IMAGE'
 
                 echo 'Removing old container ...'
-                sh 'docker rm $CONTAINER_NAME || true'
+                sh 'docker rm $OLD_CONTAINER_NAME || true'
 
                 echo 'Removing old image ...'
                 sh 'docker rmi -f $(docker images -q --filter "dangling=true" --filter "reference=$DOCKER_IMAGE") || true'
