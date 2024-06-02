@@ -44,7 +44,7 @@ pipeline {
             steps {
                 echo 'Stopping old container ...'
                 sh 'docker stop $NEW_CONTAINER_NAME || true'
-                sh 'docker rename $OLD_CONTAINER_NAME $NEW_CONTAINER_NAME'
+                sh 'docker rename $OLD_CONTAINER_NAME $NEW_CONTAINER_NAME || true'
 
                 echo 'Run new container ...'
                 sh 'docker run -d -p 8282:8080 --name $NEW_CONTAINER_NAME $DOCKER_IMAGE'
