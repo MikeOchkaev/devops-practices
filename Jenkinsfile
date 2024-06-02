@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'devops-practices:latest'
+        CONTAINER_NAME = 'devops-practices'
     }
     
     stages {
@@ -31,7 +32,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 echo 'Run docker container ...'
-                sh 'docker run -d -p 8181:8080 --name $DOCKER_IMAGE devops-practices'
+                sh 'docker run -d -p 8181:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
             }
         }
     }
