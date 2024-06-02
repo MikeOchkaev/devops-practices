@@ -2,10 +2,10 @@
 FROM bellsoft/liberica-openjdk-alpine:17
 
 # Устанавливаем рабочую директорию в контейнере
-WORKDIR /opt/app
+WORKDIR /app
 
 # Копируем исполняемый JAR-файл приложения в контейнер
-COPY ./target/devops-practices*.jar /opt/app.jar
+COPY ./target/devops-practices*.jar /app.jar
 
 EXPOSE 8181
 
