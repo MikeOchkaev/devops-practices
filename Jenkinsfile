@@ -34,8 +34,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Started building docker image ...'
-                // удаление старого образа
-                sh 'docker rmi -f $DOCKER_IMAGE'
                 // Сборка Docker образа
                 sh 'docker build -t $DOCKER_IMAGE .'
             }
@@ -44,8 +42,8 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 echo 'Run docker container ...'
-                sh 'docker stop $CONTAINER_NAME'
-                sh 'docker rm $CONTAINER_NAME'
+                sh 'docker stop $CONTAINER_NAME || true'
+                sh 'docker rm $CONTAINER_NAME || true'
                 sh 'docker run -d -p 8282:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
             }
         }
