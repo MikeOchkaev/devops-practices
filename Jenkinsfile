@@ -5,6 +5,10 @@ pipeline {
         DOCKER_IMAGE = 'devops-practices:latest'
         CONTAINER_NAME = 'devops-practices'
     }
+
+    parameters {
+        booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Skip tests during Maven build')
+    }
     
     stages {
         stage('Checkout') {
@@ -16,7 +20,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Starting build application ...'
-                sh './mvnw clean install'
+                script {
+                    def mvnCommand = 'mvnw clean install'
+                    if (params.SKIP_TESTS) {
+                        mvnCommand += ' -DskipTests=true'
+                    }
+                    sh mvnCommand
+                }
                 echo 'Finished step \'Build\''
             }
         }
