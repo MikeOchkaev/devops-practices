@@ -55,6 +55,7 @@ pipeline {
                     echo 'Removing old image ...'
                     sh 'docker rmi -f $(docker images -q --filter "dangling=true" --filter "reference=$DOCKER_IMAGE") || true'
                     sh 'docker rmi -f $(docker images -q --filter "reference=$DOCKER_IMAGE") || true'
+                    sh 'docker rmi -f $(docker images -q --filter "dangling=true") || true'
             }
         }
     }
