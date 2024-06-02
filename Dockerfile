@@ -5,7 +5,7 @@ FROM bellsoft/liberica-openjdk-alpine:17
 WORKDIR /app
 
 # Копируем исполняемый JAR-файл приложения в контейнер
-COPY target/your-app-name.jar app.jar
+COPY target/devops-practices.jar app.jar
 
 # Устанавливаем переменные среды
 ENV JAVA_OPTS=""
