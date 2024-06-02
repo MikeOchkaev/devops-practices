@@ -7,7 +7,7 @@ pipeline {
     }
 
     parameters {
-        booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Skip tests during Maven build')
+        booleanParam(name: 'SKIP_TESTS', defaultValue: false, description: 'Skip run tests during Maven build')
     }
     
     stages {
