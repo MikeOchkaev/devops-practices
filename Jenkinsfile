@@ -43,17 +43,18 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 echo 'Stopping old container ...'
-                sh 'docker stop $CONTAINER_NAME || true'
-                sh 'docker rename $CONTAINER_NAME $PREV_CONTAINER_NAME || true'
+                    sh 'docker stop $CONTAINER_NAME || true'
+                    sh 'docker rename $CONTAINER_NAME $PREV_CONTAINER_NAME || true'
 
-                echo 'Run new container ...'
-                sh 'docker run -d -p 8282:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
+                    echo 'Run new container ...'
+                    sh 'docker run -d -p 8282:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
 
-                echo 'Removing old container ...'
-                sh 'docker rm $PREV_CONTAINER_NAME || true'
+                    echo 'Removing old container ...'
+                    sh 'docker rm $PREV_CONTAINER_NAME || true'
 
-                echo 'Removing old image ...'
-                sh 'docker rmi -f $(docker images -q --filter "dangling=true" --filter "reference=$DOCKER_IMAGE") || true'
+                    echo 'Removing old image ...'
+                    sh 'docker rmi -f $(docker images -q --filter "dangling=true" --filter "reference=$DOCKER_IMAGE") || true'
+                    sh 'docker rmi -f $(docker images -q --filter "reference=$DOCKER_IMAGE") || true'
             }
         }
     }
