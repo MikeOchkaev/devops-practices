@@ -2,15 +2,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'myapp:latest' // Имя и тег вашего Docker образа
+        DOCKER_IMAGE = 'devops-practices:latest'
     }
     
     stages {
         stage('Checkout') {
             steps {
-                echo 'Started step \'Checkout\''
                 git url: 'git@github.com:MikeOchkaev/devops-practices.git', branch: 'master'
-                echo 'Finished step \'Checkout\'.'
             }
         }
         
@@ -22,19 +20,18 @@ pipeline {
             }
         }
         
-        stage('Check Docker') {
-            steps {
-                echo 'Checking docker version ...'
-                sh 'docker version'
-            }
-        }
-        
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Сборка Docker образа
-                    sh 'docker build -t $DOCKER_IMAGE .'
-                }
+                echo 'Started building docker image ...'
+                // Сборка Docker образа
+                sh 'docker build -t $DOCKER_IMAGE .'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                echo 'Run docker container ...'
+                sh 'docker run -d -p 8181:8080 --name $DOCKER_IMAGE devops-practices'
             }
         }
     }
