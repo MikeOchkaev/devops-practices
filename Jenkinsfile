@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Started building docker image ...'
                 // удаление старого образа
-                sh 'docker rmi $DOCKER_IMAGE'
+                sh 'docker rmi -f $DOCKER_IMAGE'
                 // Сборка Docker образа
                 sh 'docker build -t $DOCKER_IMAGE .'
             }
