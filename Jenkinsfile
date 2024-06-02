@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Starting build application ...'
                 script {
-                    def mvnCommand = 'mvnw clean install'
+                    def mvnCommand = './mvnw clean install'
                     if (params.SKIP_TESTS) {
                         mvnCommand += ' -DskipTests=true'
                     }
