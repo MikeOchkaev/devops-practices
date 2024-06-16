@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "mikeochkaev/devops-practices"
         DOCKER_HUB_CREDENTIAL = "my_docker_hub"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG_LATEST = "latest"
     }
 
     parameters {
@@ -48,7 +48,7 @@ pipeline {
                 echo "Started pushing docker image ..."
                 script {
                     docker.withRegistry( "https://registry.hub.docker.com", DOCKER_HUB_CREDENTIAL) {
-                        sh "docker push mikeochkaev/$DOCKER_IMAGE:$IMAGE_TAG"
+                        sh "docker push $DOCKER_IMAGE:$IMAGE_TAG_LATEST"
                     }
                 }
             }
