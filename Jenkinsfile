@@ -55,7 +55,7 @@ pipeline {
             }
         }
 
-        stage("Deploying spring-app container to K8s") {
+        stage("Deploying app with K8s") {
             steps {
                 echo "Started deploying app with k8s ..."
                 script {
