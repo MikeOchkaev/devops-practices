@@ -44,18 +44,19 @@ pipeline {
             }
         }
 
-        stage("Pushing docker image") {
+        stage("Push docker image") {
             steps{
                 echo "Started pushing docker image ..."
                 script {
                     docker.withRegistry( "https://www.docker.com", DOCKER_HUB_CREDENTIAL) {
                         sh "docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
+                        sh "docker rm $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
                     }
                 }
             }
         }
 
-        stage("Deploying app with K8s") {
+        stage("Deploy app with K8s") {
             steps {
                 echo "Started deploying app with k8s ..."
                 script {
