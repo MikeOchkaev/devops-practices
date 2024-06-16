@@ -50,7 +50,7 @@ pipeline {
                 script {
                     docker.withRegistry( "https://www.docker.com", DOCKER_HUB_CREDENTIAL) {
                         sh "docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
-                        sh "docker rm $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
+                        sh "docker rmi $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
                     }
                 }
             }
