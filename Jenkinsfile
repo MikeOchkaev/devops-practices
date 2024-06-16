@@ -2,14 +2,18 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "devops-practices:latest"
+        DOCKER_IMAGE = "devops-practices"
         CONTAINER_NAME = "devops-practices"
         PREV_CONTAINER_NAME = "devops-practices-prev"
         DOCKER_HUB_CREDENTIAL = "my_docker_hub"
     }
 
     parameters {
-        booleanParam(name: "SKIP_TESTS", defaultValue: false, description: "Skip run tests during Maven build")
+        booleanParam(
+            name: "SKIP_TESTS",
+            defaultValue: false,
+            description: "Skip run tests during Maven build"
+        )
     }
     
     stages {
