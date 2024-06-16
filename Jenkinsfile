@@ -45,7 +45,7 @@ pipeline {
                 echo "Started pushing docker image ..."
                 script {
                     docker.withRegistry( "https://registry.hub.docker.com", DOCKER_HUB_CREDENTIAL) {
-                        docker.image(DOCKER_IMAGE).push("latest")
+                        dockerImage.push("latest")
                     }
                 }
             }
