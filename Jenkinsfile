@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "mikeochkaev/devops-practices"
-        DOCKER_HUB_CREDENTIAL = "my_docker_hub"
+        USERNAME = "mikeochkaev"
+        DOCKER_IMAGE_NAME = "devops-practices"
         IMAGE_TAG_LATEST = "latest"
+        DOCKER_HUB_CREDENTIAL = "my_docker_hub"
     }
 
     parameters {
@@ -47,8 +48,8 @@ pipeline {
             steps{
                 echo "Started pushing docker image ..."
                 script {
-                    docker.withRegistry( "https://registry.hub.docker.com", DOCKER_HUB_CREDENTIAL) {
-                        sh "docker push $DOCKER_IMAGE:$IMAGE_TAG_LATEST"
+                    docker.withRegistry( "docker.io", DOCKER_HUB_CREDENTIAL) {
+                        sh "docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
                     }
                 }
             }
