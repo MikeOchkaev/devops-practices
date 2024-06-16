@@ -18,7 +18,7 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('Build application') {
             steps {
                 echo 'Starting build application ...'
                 script {
@@ -32,7 +32,7 @@ pipeline {
             }
         }
         
-        stage('Build Docker Image') {
+        stage('Build docker image') {
             steps {
                 echo 'Started building docker image ...'
                 // Сборка Docker образа
@@ -40,22 +40,24 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Pushing docker image') {
+            environment {
+                registryCredential = 'my_docker_hub'
+            }
+            steps{
+                script {
+                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                        dockerImage.push("latest")
+                    }
+                }
+            }
+        }
+
+        stage('Deploying spring-app container to K8s') {
             steps {
-                echo 'Stopping old container ...'
-                    sh 'docker stop $CONTAINER_NAME || true'
-                    sh 'docker rename $CONTAINER_NAME $PREV_CONTAINER_NAME || true'
-
-                    echo 'Run new container ...'
-                    sh 'docker run -d -p 8282:8080 --name $CONTAINER_NAME $DOCKER_IMAGE'
-
-                    echo 'Removing old container ...'
-                    sh 'docker rm $PREV_CONTAINER_NAME || true'
-
-                    echo 'Removing old image ...'
-                    sh 'docker rmi -f $(docker images -q --filter "dangling=true" --filter "reference=$DOCKER_IMAGE") || true'
-                    sh 'docker rmi -f $(docker images -q --filter "reference=$DOCKER_IMAGE") || true'
-                    sh 'docker rmi -f $(docker images -q --filter "dangling=true") || true'
+                script {
+                    kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+                }
             }
         }
     }
