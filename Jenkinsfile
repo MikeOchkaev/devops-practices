@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "devops-practices"
-        CONTAINER_NAME = "devops-practices"
-        PREV_CONTAINER_NAME = "devops-practices-prev"
         DOCKER_HUB_CREDENTIAL = "my_docker_hub"
     }
 
@@ -49,7 +47,7 @@ pipeline {
                 echo "Started pushing docker image ..."
                 script {
                     docker.withRegistry( "https://registry.hub.docker.com", DOCKER_HUB_CREDENTIAL) {
-                        dockerImage.push("latest")
+                        sh "docker push devops-practices:latest"
                     }
                 }
             }
