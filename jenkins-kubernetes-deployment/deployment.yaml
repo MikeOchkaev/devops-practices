@@ -4,21 +4,21 @@ metadata:
   name: deployment #The name of the Kubernetes
   #Deployment to be created in the Kubernetes cluster
   labels:
-    app: spring-app
+    app: devops-practices-app
 spec:
-  replicas: 2 #The number of pods to be created in the
+  replicas: 1 #The number of pods to be created in the
   #Kubernetes cluster for the React.js application container
   selector:
     matchLabels:
-      app: spring-app
+      app: devops-practices-app
   template:
     metadata:
       labels:
-        app: spring-app
+        app: devops-practices-app
     spec:
       containers:
-        - name: spring-app #The name of the react.js application container
+        - name: devops-practices-app #The name of the react.js application container
           #The Docker image for building the React.js application container
-          image: om-dev/spring-app:latest
+          image: mikeochkaev/devops-practices:latest
           ports:
             - containerPort: 8080 #The port for the React.js application container

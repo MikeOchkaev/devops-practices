@@ -6,9 +6,9 @@ metadata:
   name: service
 spec:
   selector:
-    app: spring-app
+    app: devops-practices-app
   type: LoadBalancer #Type of the Kubernetes Service
   ports:
     - protocol: TCP
-      port: 8080 #Service port
+      port: 8080 #Service port (внутри кластера k8s)
       targetPort: 8080 #The port for the React.js application container
