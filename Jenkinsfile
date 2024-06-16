@@ -5,6 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'devops-practices:latest'
         CONTAINER_NAME = 'devops-practices'
         PREV_CONTAINER_NAME = 'devops-practices-prev'
+        DOCKER_HUB_CREDENTIAL = 'my_docker_hub'
     }
 
     parameters {
@@ -41,12 +42,10 @@ pipeline {
         }
 
         stage('Pushing docker image') {
-            environment {
-                registryCredential = 'my_docker_hub'
-            }
             steps{
+                echo 'Started pushing docker image ...'
                 script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                    docker.withRegistry( 'https://registry.hub.docker.com', DOCKER_HUB_CREDENTIAL) {
                         dockerImage.push("latest")
                     }
                 }
@@ -55,6 +54,7 @@ pipeline {
 
         stage('Deploying spring-app container to K8s') {
             steps {
+                echo 'Started deploying app with k8s ...'
                 script {
                     kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
                 }
