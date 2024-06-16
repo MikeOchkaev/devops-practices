@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "devops-practices"
-        CONTAINER_NAME = "devops-practices"
-        PREV_CONTAINER_NAME = "devops-practices-prev"
+        DOCKER_IMAGE = ""
+        DOCKER_IMAGE_NAME = "devops-practices"
         DOCKER_HUB_CREDENTIAL = "my_docker_hub"
     }
 
@@ -40,7 +39,7 @@ pipeline {
         stage("Build docker image") {
             steps {
                 echo "Started building docker image ..."
-                sh "docker build -t $DOCKER_IMAGE ."
+                DOCKER_IMAGE = docker.build DOCKER_IMAGE_NAME
             }
         }
 
@@ -49,7 +48,7 @@ pipeline {
                 echo "Started pushing docker image ..."
                 script {
                     docker.withRegistry( "https://registry.hub.docker.com", DOCKER_HUB_CREDENTIAL) {
-                        dockerImage.push("latest")
+                        DOCKER_IMAGE.push("latest")
                     }
                 }
             }
