@@ -48,7 +48,7 @@ pipeline {
             steps{
                 echo "Started pushing docker image ..."
                 script {
-                    docker.withRegistry( "docker.io", DOCKER_HUB_CREDENTIAL) {
+                    docker.withRegistry( "https://www.docker.com", DOCKER_HUB_CREDENTIAL) {
                         sh "docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
                     }
                 }
