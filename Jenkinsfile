@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "devops-practices"
+        DOCKER_IMAGE = "mikeochkaev/devops-practices"
         DOCKER_HUB_CREDENTIAL = "my_docker_hub"
         IMAGE_TAG = "latest"
     }
