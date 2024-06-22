@@ -48,10 +48,15 @@ pipeline {
             steps{
                 echo "Started pushing docker image ..."
                 script {
-                    docker.withRegistry( "https://www.docker.com", DOCKER_HUB_CREDENTIAL) {
-                        sh "docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
-                        sh "docker rmi $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
-                    }
+//                     docker.withRegistry( "https://www.docker.com", DOCKER_HUB_CREDENTIAL) {
+//                                             sh "docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
+//                                             sh "docker rmi $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST"
+//                     }
+                    sh """
+                        docker login -u o4ckaev@mail.ru -p Kalmik1994 https://registry.hub.docker.com
+                        docker push $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST
+                        docker rmi $USERNAME/$DOCKER_IMAGE_NAME:$IMAGE_TAG_LATEST
+                    """
                 }
             }
         }
