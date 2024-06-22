@@ -3,3 +3,12 @@ spring:
     name: devops-practices
 server:
   port: 8080
+
+logging:
+  level:
+    com.example.devopspractices: DEBUG
+    org.zalando.logbook.Logbook: TRACE
+
+logbook:
+  filter:
+    enabled: true
