@@ -56,11 +56,11 @@ pipeline {
             }
         }
 
-        stage("Deploy app with K8s") {
+        stage("Deploy app to K8s") {
             steps {
                 echo "Started deploying app with k8s ..."
                 script {
-                    kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
+                    kubernetesDeploy (configs: 'deployment&service.yaml ', kubeconfigId: 'minikube_config')
                 }
             }
         }

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment #The name of the Kubernetes
+  name: devops-practices-app-deployment #The name of the Kubernetes
   #Deployment to be created in the Kubernetes cluster
   labels:
     app: devops-practices-app
@@ -22,3 +22,20 @@ spec:
           image: mikeochkaev/devops-practices:latest
           ports:
             - containerPort: 8080 #The port for the React.js application container
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  #The name of the Kubernetes Service to be created
+  #in the Kubernetes cluster
+  name: service
+spec:
+  selector:
+    app: devops-practices-app
+  type: NodePort #Type of the Kubernetes Service
+  ports:
+    - protocol: TCP
+      port: 8080 #Service port (внутри кластера k8s)
+      targetPort: 8080 #The port for the React.js application container
