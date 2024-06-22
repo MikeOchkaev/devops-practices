@@ -30,7 +30,7 @@ kind: Service
 metadata:
   #The name of the Kubernetes Service to be created
   #in the Kubernetes cluster
-  name: service
+  name: devops-practices-app-service
 spec:
   selector:
     app: devops-practices-app
