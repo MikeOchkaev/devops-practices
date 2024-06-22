@@ -10,4 +10,4 @@ COPY ./target/devops-practices-*.jar devops-practices.jar
 EXPOSE 8080
 
 # Указываем команду запуска приложения
-ENTRYPOINT ["java", "-jar" ,"/devops-practices.jar"]
+ENTRYPOINT ["java", "-jar" ,"devops-practices.jar"]
